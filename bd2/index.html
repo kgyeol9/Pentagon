@@ -7,28 +7,77 @@
 body{
   color: white;
 }
-.header{
+.div-flex{
+  display: flex;
+}
+/* header */
+.header-home{
   /* 예시값 */
   background-color: brown;
   /* 기본값 */
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 80px;
+  height: 64px;
 }
+.logo-home{
+  background-color: beige;
+
+  width: 180px;
+  height: 100%;
+}
+.nav-home{
+  position: absolute;
+  left: 360px;
+  background-color: aqua;
+  width: 1200px;
+  height: 100%;
+}
+.header-sub{
+  background-color: aquamarine;
+  position: relative;
+  top: 64px;
+  width: 100%;
+  height: 64px;
+}
+.logo-sub{
+  background-color: cadetblue;
+  width: 180px;
+  height: 100%;
+}
+.nav-sub{
+  background-color: darkorange;
+  position: absolute;
+  left: 360px;
+  width: 1200px;
+  height: 100%;
+}
+/* body */
 .body{
   /* 기본값 */
   display: flex;
   position: relative;
-  top: 80px;
+  top: 64px;
   width: 100%;
   /* height: 200px; */
 }
+/* sideL */
 .side-left{
   background-color: red;
   /* 기본값 */
   position: relative;
   width: 360px;
+}
+.user-box{
+  background-color: cornflowerblue;
+  width: 100%;
+  height: 200px;
+}
+.nav-category{
+  background-color: darkseagreen;
+  position: relative;
+  width: 100%;
+  height: 400px;
 }
 .content{
   background-color: green;
@@ -42,31 +91,41 @@ body{
   position: relative;
   width: 360px;
 }
+/* footer */
 .footer{
   background-color: purple;
   /* 기본값 */
   position: relative;
-  top: 80px;
+  top: 64px;
   bottom: 0px;
   width: 100%;
-  height: 160px;
+  height: 120px;
 }
+
 </style>
 </head>
 <body>
   <!-- 헤더 영역 -->
-  <div class="header">
-    <div class="logo"></div>
+  <div class="header-home div-flex">
+    <div class="logo-home">JONGGAM</div>
+    <div class="nav-home div-flex"></div>
+  </div>
+  <div class="header-sub div-flex">
+    <div class="logo-sub">BROWNDUST2</div>
+    <div class="nav-sub"></div>
   </div>
   <!-- 바디 영역 -->
   <div class="body">
     <!-- 사이드L 영역 -->
     <div class="side-left">
+      <div class="user-box">
 
+      </div>
+      <div class="nav-category"></div>
     </div>
     <!-- 콘텐트 영역 -->
     <div class="content">
-
+1
     </div>
     <!-- 사이드R 영역 -->
     <div class="side-right"></div>

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.vampir.item.service.ItemService;
+import com.myspring.vampir.item.vo.ItemVO;
+
 @Controller("ItemController")
 public class ItemControllerImpl implements ItemController{
 	

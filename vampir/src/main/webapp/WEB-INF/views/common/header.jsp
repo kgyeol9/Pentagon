@@ -124,8 +124,11 @@ nav.center-nav a:hover {
 			<td><header>
 					<a href="${contextPath}/home.do" class="logo">VAMPI.GG</a>
 					<nav class="center-nav">
-						<a href="#game-info">게임 정보</a> <a href="#community">커뮤니티</a> <a
-							href="#notices">공지사항</a> <a href="#events">이벤트</a>
+						<a href="${contextPath}/itemDB.do">아이템DB</a>
+						<a href="#game-info">게임 정보</a>
+						<a href="#community">커뮤니티</a>
+						<a href="#notices">공지사항</a>
+						<a href="#events">이벤트</a>
 					</nav>
 					<div class="settings">
 						<button id="darkToggle">다크모드</button>

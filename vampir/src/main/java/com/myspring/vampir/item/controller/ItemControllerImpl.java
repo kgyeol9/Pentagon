@@ -38,5 +38,13 @@ public class ItemControllerImpl implements ItemController {
 		mav.addObject("itemsList", itemsList);
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/itemDB.do" , method = RequestMethod.GET)
+	public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List itemsList = itemService.listItems();
+		
+		ModelAndView mav = new ModelAndView("itemDB");
+		mav.addObject("itemsList" , itemsList);
+		return mav;
+	}
 }

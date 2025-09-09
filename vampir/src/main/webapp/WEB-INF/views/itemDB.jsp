@@ -23,7 +23,7 @@
 }
 
 .subrow{ min-height: var(--subrow-base); }
-.fbox .subrow:nth-child(-n+3){ min-height: calc(var(--subrow-base) + var(--boost)); }
+.fbox .subrow:nth-child(-n+3) { min-height: calc(var(--subrow-base) + var(--boost)); }
 .filter-right{ gap: var(--gap); }
 .thead .c, .r .c{ min-height: var(--row-h); }
 
@@ -249,10 +249,6 @@ a {
 /* ===== 리스트 ===== */
 .list {
 	overflow: hidden;
-}
-
-:root { -
-	-row-h: 44px;
 }
 
 .thead, .r {
@@ -484,7 +480,6 @@ a {
 <body>
 	<main class="db-main">
 		<h2 class="page-title">아이템 DB</h2>
-
 		<!-- ===== 필터 (왼쪽: 단일 박스 / 오른쪽: 윗 가로2 + 아래 비교) ===== -->
 		<section class="card filters" aria-label="아이템 필터">
 			<div class="filters-grid">
@@ -495,48 +490,37 @@ a {
 						<div class="subrow">
 							<div class="label">직업</div>
 							<div class="checks" id="jobs">
-								<label class="chk"><input type="checkbox" name="job"
-									value="전체" checked>전체</label> <label class="chk"><input
-									type="checkbox" name="job" value="바이퍼">바이퍼</label> <label
-									class="chk"><input type="checkbox" name="job"
-									value="그림리퍼">그림리퍼</label> <label class="chk"><input
-									type="checkbox" name="job" value="카니지">카니지</label> <label
-									class="chk"><input type="checkbox" name="job"
-									value="블러드스테인">블러드스테인</label>
+								<label class="chk"><input type="checkbox" name="job" value="전체" checked>전체</label>
+								<label class="chk"><input type="checkbox" name="job" value="바이퍼">바이퍼</label>
+								<label class="chk"><input type="checkbox" name="job" value="그림리퍼">그림리퍼</label>
+								<label class="chk"><input type="checkbox" name="job" value="카니지">카니지</label>
+								<label class="chk"><input type="checkbox" name="job" value="블러드스테인">블러드스테인</label>
 							</div>
 						</div>
 						<!-- 분류 -->
 						<div class="subrow">
 							<div class="label">분류</div>
 							<div class="checks" id="cats">
-								<label class="chk"><input type="checkbox" name="cat"
-									value="무기">무기</label> <label class="chk"><input
-									type="checkbox" name="cat" value="방어구">방어구</label> <label
-									class="chk"><input type="checkbox" name="cat"
-									value="장신구">장신구</label> <label class="chk"><input
-									type="checkbox" name="cat" value="부장품">부장품</label> <label
-									class="chk"><input type="checkbox" name="cat"
-									value="소모품">소모품</label> <label class="chk"><input
-									type="checkbox" name="cat" value="스킬북">스킬북</label> <label
-									class="chk"><input type="checkbox" name="cat"
-									value="재표">재표</label>
+								<label class="chk"><input type="checkbox" name="cat" value="무기">무기</label>
+								<label class="chk"><input type="checkbox" name="cat" value="방어구">방어구</label>
+								<label class="chk"><input type="checkbox" name="cat" value="장신구">장신구</label>
+								<label class="chk"><input type="checkbox" name="cat" value="부장품">부장품</label>
+								<label class="chk"><input type="checkbox" name="cat" value="소모품">소모품</label>
+								<label class="chk"><input type="checkbox" name="cat" value="스킬북">스킬북</label>
+								<label class="chk"><input type="checkbox" name="cat" value="재표">재표</label>
 							</div>
 						</div>
 						<!-- 등급 -->
 						<div class="subrow">
 							<div class="label">등급</div>
 							<div class="checks" id="grades">
-								<label class="chk"><input type="checkbox" name="grade"
-									value="전체" checked>전체</label> <label class="chk"><input
-									type="checkbox" name="grade" value="일반">일반</label> <label
-									class="chk"><input type="checkbox" name="grade"
-									value="고급">고급</label> <label class="chk"><input
-									type="checkbox" name="grade" value="희귀">희귀</label> <label
-									class="chk"><input type="checkbox" name="grade"
-									value="영웅">영웅</label> <label class="chk"><input
-									type="checkbox" name="grade" value="전설">전설</label> <label
-									class="chk"><input type="checkbox" name="grade"
-									value="신화">신화</label>
+								<label class="chk"><input type="checkbox" name="grade" value="전체" checked>전체</label>
+								<label class="chk"><input type="checkbox" name="grade" value="일반">일반</label>
+								<label class="chk"><input type="checkbox" name="grade" value="고급">고급</label>
+								<label class="chk"><input type="checkbox" name="grade" value="희귀">희귀</label>
+								<label class="chk"><input type="checkbox" name="grade" value="영웅">영웅</label>
+								<label class="chk"><input type="checkbox" name="grade" value="전설">전설</label>
+								<label class="chk"><input type="checkbox" name="grade" value="신화">신화</label>
 							</div>
 						</div>
 						<!-- 검색 -->
@@ -553,19 +537,15 @@ a {
 				<!-- 오른쪽 50% : 윗 행(2분할, 선택 영역) + 아래 행(비교) -->
 				<div class="filter-right" id="filterRight">
 					<div class="sidebox-row" id="sideTopRow">
-						<div class="sidebox selectable selected" id="sideTopA"
-							data-slot="A" title="담을 위치 선택(A)">
+						<div class="sidebox selectable selected" id="sideTopA" data-slot="A" title="담을 위치 선택(A)">
 							<div class="slot-head">
-								<span class="chip">비교 A (기준)</span><span id="slotALabel"
-									style="color: #aaa">비어 있음</span>
+								<span class="chip">비교 A (기준)</span><span id="slotALabel" style="color: #aaa">비어 있음</span>
 							</div>
 							<div id="slotA"></div>
 						</div>
-						<div class="sidebox selectable" id="sideTopB" data-slot="B"
-							title="담을 위치 선택(B)">
+						<div class="sidebox selectable" id="sideTopB" data-slot="B" title="담을 위치 선택(B)">
 							<div class="slot-head">
-								<span class="chip">비교 B</span><span id="slotBLabel"
-									style="color: #aaa">비어 있음</span>
+								<span class="chip">비교 B</span><span id="slotBLabel" style="color: #aaa">비어 있음</span>
 							</div>
 							<div id="slotB"></div>
 						</div>
@@ -574,8 +554,7 @@ a {
 						<div class="slot-head">
 							<span class="chip">스펙 비교 (A 기준)</span>
 						</div>
-						<div id="cmpBox" style="color: #aaa; font-size: 13px;">A와 B에
-							아이템을 담으면 비교가 표시됩니다.</div>
+						<div id="cmpBox" style="color: #aaa; font-size: 13px;">A와 B에 아이템을 담으면 비교가 표시됩니다.</div>
 					</div>
 				</div>
 			</div>
@@ -585,8 +564,8 @@ a {
 		<div class="result-bar">
 			<div class="result-info" id="resultInfo">총 0개</div>
 			<div class="sort-group">
-				<span style="color: #bbb; font-size: 13px">정렬:</span> <select
-					id="sortKey">
+				<span style="color: #bbb; font-size: 13px">정렬:</span>
+				<select id="sortKey">
 					<option value="id">번호</option>
 					<option value="name">이름</option>
 					<option value="grade">등급</option>
@@ -607,13 +586,35 @@ a {
 				<div class="c th" data-k="stats">아이템 능력치</div>
 				<div class="c no-sort"></div>
 			</div>
-			<div id="itemBody"></div>
+			<div id="itemBody">
+			  <c:if test="{empty itemsList}">
+			    <div class="r">
+			      <div class="c" style="grid-column:1/-1; color:#aaa;">데이터가 없습니다.</div>
+			    </div>
+			  </c:if>
+			  
+			  <c:forEach var="item" items="${itemsList}">
+      			<div class="r">
+        			<div class="c">${item.item_code}</div>
+        			<div class="c">${fn:escapeXml(item.name)}</div>
+        			<div class="c">
+          		<c:choose>
+            	<c:when test="${item.min_ATK != 0 || item.max_ATK != 0}">
+              		ATK ${item.min_ATK} ~ ${item.max_ATK}
+              		<c:if test="${item.add_ATK != 0}"> / +${item.add_ATK}</c:if>
+            	</c:when>
+            	<c:otherwise>-</c:otherwise>
+          </c:choose>
+        </div>
+        <div class="c"></div>
+      </div>
+    </c:forEach>
+			</div>
 		</section>
 
 		<!-- ===== 페이징 ===== -->
 		<div class="pager" id="pager">
 			<select id="pageSize">
-				<option value="5">5개</option>
 				<option value="10" selected>10개</option>
 				<option value="20">20개</option>
 				<option value="50">50개</option>

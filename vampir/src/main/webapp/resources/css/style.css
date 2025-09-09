@@ -1,9 +1,9 @@
 /* ======================================================================
-   Vampi.GG — Global Base (Dark tone + Shared Components)
-   - 전역 다크/링크 리셋
-   - Header / Side / Footer 공용 스타일
-   - 공용 유틸(컨테이너/카드/버튼/입력/테이블/페이징)
-   - 홈의 톤 그대로 유지 (빨간 포인트)
+   Vampi.GG �� Global Base (Dark tone + Shared Components)
+   - �쟾�뿭 �떎�겕/留곹겕 由ъ뀑
+   - Header / Side / Footer 怨듭슜 �뒪���씪
+   - 怨듭슜 �쑀�떥(而⑦뀒�씠�꼫/移대뱶/踰꾪듉/�엯�젰/�뀒�씠釉�/�럹�씠吏�)
+   - �솃�쓽 �넠 洹몃�濡� �쑀吏� (鍮④컙 �룷�씤�듃)
    ====================================================================== */
 
 /* ===== 0) Global reset ===== */
@@ -11,16 +11,16 @@ html, body {
 	margin: 0;
 	background: #121212;
 	color: #eee;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 홈 톤 */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* �솃 �넠 */
 	line-height: 1.6;
 }
 
 a {
 	text-decoration: none;
-	color: inherit; /* 기본은 주변 텍스트색을 따름 */
+	color: inherit; /* 湲곕낯�� 二쇰� �뀓�뒪�듃�깋�쓣 �뵲由� */
 }
 
-/* 색 토큰 */
+/* �깋 �넗�겙 */
 :root { -
 	-bg: #121212; -
 	-ink: #eee; -
@@ -31,7 +31,7 @@ a {
 	-accent-2: #ff4444;
 }
 
-/* ===== 1) Layout (Tiles 기본 영역 크기) ===== */
+/* ===== 1) Layout (Tiles 湲곕낯 �쁺�뿭 �겕湲�) ===== */
 #container {
 	width: 100%;
 }
@@ -54,7 +54,7 @@ a {
 	clear: both;
 }
 
-/* ===== 2) Header (공용) ===== */
+/* ===== 2) Header (怨듭슜) ===== */
 header {
 	background-color: #1c1c1c;
 	padding: 1em;
@@ -121,7 +121,7 @@ nav.center-nav a:hover {
 	background: var(- -accent);
 }
 
-/* 사이드 메뉴(헤더 우측 ‘메뉴’ 버튼) */
+/* �궗�씠�뱶 硫붾돱(�뿤�뜑 �슦痢� �섎찓�돱�� 踰꾪듉) */
 .side-menu {
 	position: fixed;
 	top: 0;
@@ -161,7 +161,7 @@ nav.center-nav a:hover {
 	cursor: pointer;
 }
 
-/* ===== 3) 사이드(로그인/회원정보) ===== */
+/* ===== 3) �궗�씠�뱶(濡쒓렇�씤/�쉶�썝�젙蹂�) ===== */
 .login-box, .logOn-box {
 	position: absolute;
 	top: 120px;
@@ -170,7 +170,7 @@ nav.center-nav a:hover {
 	padding: 1em;
 	border-radius: 8px;
 	box-shadow: 0 0 8px #bb000033;
-	width: 280px; /* 로그인/로그온 동일 폭 */
+	width: 280px; /* 濡쒓렇�씤/濡쒓렇�삩 �룞�씪 �룺 */
 	z-index: 5;
 	border: 1px solid var(- -line);
 }
@@ -182,7 +182,7 @@ nav.center-nav a:hover {
 	margin-bottom: 0.8em;
 }
 
-/* 로그인 입력/버튼 */
+/* 濡쒓렇�씤 �엯�젰/踰꾪듉 */
 .login-box .input-group {
 	display: flex;
 	align-items: center;
@@ -249,7 +249,7 @@ nav.center-nav a:hover {
 	text-align: center;
 }
 
-/* 로그인 상태 박스 */
+/* 濡쒓렇�씤 �긽�깭 諛뺤뒪 */
 .logOn-box .user-top {
 	display: flex;
 	align-items: center;
@@ -336,7 +336,7 @@ nav.center-nav a:hover {
 	border-color: var(- -accent);
 }
 
-/* ===== 4) Footer (공용) ===== */
+/* ===== 4) Footer (怨듭슜) ===== */
 footer {
 	text-align: center;
 	padding: 1em;
@@ -347,7 +347,7 @@ footer {
 	margin-top: 3em;
 }
 
-/* ===== 5) Common utilities (홈 톤 공유) ===== */
+/* ===== 5) Common utilities (�솃 �넠 怨듭쑀) ===== */
 .container-1200 {
 	max-width: 1200px;
 	margin: 0 auto;
@@ -437,7 +437,7 @@ ul.reset>li:last-child {
 	color: #9aa2af;
 }
 
-/* 테이블(게시판) */
+/* �뀒�씠釉�(寃뚯떆�뙋) */
 .table-card {
 	width: 100%;
 	border-collapse: separate;
@@ -472,7 +472,7 @@ ul.reset>li:last-child {
 .table-card tbody tr:hover {
 	background: #191d24;
 }
-/* 게시판 링크 색상 */
+/* 寃뚯떆�뙋 留곹겕 �깋�긽 */
 .table-card a {
 	color: #cbd5e1;
 }
@@ -481,7 +481,7 @@ ul.reset>li:last-child {
 	text-decoration: underline;
 }
 
-/* 페이징 */
+/* �럹�씠吏� */
 .pagination {
 	display: flex;
 	justify-content: center;
@@ -507,7 +507,7 @@ ul.reset>li:last-child {
 	color: #fff;
 }
 
-/* ===== 6) Home page helpers (선택: 홈에서도 공용화하고 싶다면 사용) ===== */
+/* ===== 6) Home page helpers (�꽑�깮: �솃�뿉�꽌�룄 怨듭슜�솕�븯怨� �떢�떎硫� �궗�슜) ===== */
 main.home {
 	max-width: 1200px;
 	margin: -80px auto 2em;
@@ -554,7 +554,7 @@ main.home {
 	background: var(- -accent-2);
 }
 
-/* 게시판 화면 상단 여백(헤더 높이 보정) */
+/* 寃뚯떆�뙋 �솕硫� �긽�떒 �뿬諛�(�뿤�뜑 �넂�씠 蹂댁젙) */
 .page-offset {
 	margin-top: 120px;
 }

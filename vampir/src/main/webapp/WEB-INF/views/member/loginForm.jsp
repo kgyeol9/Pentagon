@@ -130,9 +130,9 @@ input::placeholder {
 			
 			<form action="${contextPath}/member/login.do" method="POST">
 				<label for="username">아이디</label> <input type="text" id="username"
-					name="username" placeholder="아이디를 입력하세요" required /> <label
+					name="id" placeholder="아이디를 입력하세요" required /> <label
 					for="password">비밀번호</label> <input type="password" id="password"
-					name="password" placeholder="비밀번호를 입력하세요" required />
+					name="pwd" placeholder="비밀번호를 입력하세요" required />
 
 				<button class="login" type="submit">로그인</button>
 			</form>

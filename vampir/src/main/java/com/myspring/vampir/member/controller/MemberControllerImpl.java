@@ -87,6 +87,12 @@ public class MemberControllerImpl   implements MemberController {
 				              RedirectAttributes rAttr,
 		                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 	ModelAndView mav = new ModelAndView();
+	String id = request.getParameter("username");
+	String pwd = request.getParameter("password");
+	System.out.print(id );
+	System.out.print(pwd );
+	
+	
 	memberVO = memberService.login(member);
 	if(memberVO != null) {
 	    HttpSession session = request.getSession();

@@ -116,7 +116,21 @@ nav.center-nav a:hover {
 	right: 15px;
 	cursor: pointer;
 }
+.dropdown {
+	position: relative;  /* 버튼과 박스의 기준점 */
+	display: inline-block;
+}
+.logOn-box.show {
+	transform: translateY(0);
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.hidden {
+	display: none;
+}
 </style>
+
 </head>
 <body>
 	<table border=0 width="100%">
@@ -131,13 +145,52 @@ nav.center-nav a:hover {
 						<a href="#events">이벤트</a>
 					</nav>
 					<div class="settings">
-						<button type="button" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'"> 로그인 </button>
+					
+						<c:choose>
+							<c:when test="${isLogOn == true  && member!= null}">
+							<div class=dropdown>
+								<button id="toggleBtn"> 프로필(임시) </button>
+							
+							<!-- 토글 카드 -->
+								<aside class="logOn-box" id="logOnBox">
+									<div class="user-top">
+										<h3 class="user-name">${member.name}님</h3>
+										<a href="${contextPath}/member/logout.do" class="logout-btn">로그아웃</a>
+									</div>
+
+									<div class="user-main">
+										<div class="profile-pic"></div>
+										<div class="user-textbox">
+											<span>회원 전용 텍스트 영역</span>
+										</div>
+									</div>
+
+									<div class="user-bottom">
+										<a href="#" class="btn inbox">쪽지함</a>
+										<a href="${contextPath}/member/mypage.do" class="btn mypage">마이페이지</a>
+									</div>
+								</aside>
+							</div>
+							
+							</c:when>
+						<c:otherwise>
+							<button type="button" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'"> 로그인 </button>
+						</c:otherwise>
+						</c:choose>
 						<button id="menuBtn">메뉴</button>
 					</div>
 				</header></td>
 		</tr>
 	</table>
 
+<script>
+	const toggleBtn = document.getElementById("toggleBtn");
+	const logOnBox = document.getElementById("logOnBox");
+
+	toggleBtn.addEventListener("click", () => {
+		logOnBox.classList.toggle("show");
+	});
+</script>
 
 </body>
 </html>

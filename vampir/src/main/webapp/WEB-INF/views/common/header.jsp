@@ -131,8 +131,6 @@ nav.center-nav a:hover {
 						<a href="#events">이벤트</a>
 					</nav>
 					<div class="settings">
-						<button id="darkToggle">다크모드</button>
-						<button id="gogack">고객센터</button>
 						<button id="menuBtn">메뉴</button>
 					</div>
 				</header></td>

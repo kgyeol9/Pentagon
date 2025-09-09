@@ -103,7 +103,7 @@ public class MemberControllerImpl   implements MemberController {
 
 	}else {
 	   rAttr.addAttribute("result","loginFailed");
-	   mav.setViewName("redirect:/member/loginForm.do");
+	   mav.setViewName("redirect:/home.do");
 	}
 	return mav;
 	}
@@ -119,7 +119,7 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}	
 
-	@RequestMapping(value = "/member/*Form.do", method =  {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/member/*Form.do", method =  RequestMethod.GET)
 	private ModelAndView form(@RequestParam(value= "result", required=false) String result,
 							  @RequestParam(value= "action", required=false) String action,
 						       HttpServletRequest request, 

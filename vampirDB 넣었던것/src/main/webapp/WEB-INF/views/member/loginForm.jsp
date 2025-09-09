@@ -103,18 +103,6 @@ input::placeholder {
 .links a:hover {
 	color: #ff4444;
 }
-/* 에러 메시지 스타일 */
-.login-error {
-	background: #2a0000;
-	color: #ff5555;
-	border: 1px solid #bb0000;
-	padding: 8px;
-	border-radius: 4px;
-	font-size: 0.9em;
-	margin-bottom: 0.8em;
-	text-align: center;
-}
-
 </style>
 </head>
 
@@ -123,12 +111,7 @@ input::placeholder {
 	<main>
 		<div class="login-container">
 			<h2>로그인</h2>
-			
-				<c:if test="${param.result eq 'loginFailed'}">
-					<div class="login-error">아이디 또는 비밀번호가 올바르지 않습니다.</div>
-				</c:if>			
-			
-			<form action="${contextPath}/member/login.do" method="POST">
+			<form action="#" method="POST">
 				<label for="username">아이디</label> <input type="text" id="username"
 					name="username" placeholder="아이디를 입력하세요" required /> <label
 					for="password">비밀번호</label> <input type="password" id="password"

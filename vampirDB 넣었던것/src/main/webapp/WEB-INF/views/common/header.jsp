@@ -131,7 +131,7 @@ nav.center-nav a:hover {
 						<a href="#events">이벤트</a>
 					</nav>
 					<div class="settings">
-						<button type="button" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'"> 로그인 </button>
+					
 						<button id="menuBtn">메뉴</button>
 					</div>
 				</header></td>

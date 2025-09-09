@@ -213,7 +213,7 @@
 <title>사이드 메뉴</title>
 </head>
 <body>
-<%-- 	<c:choose>
+	<c:choose>
 		<c:when test="${isLogOn == true  && member!= null}">
 			<!-- 회원 정보 박스 -->
 			<aside class="logOn-box">
@@ -265,7 +265,7 @@
 				</div>
 			</aside>
 		</c:otherwise>
-	</c:choose> --%>
+	</c:choose>
 
 </body>
 </html>

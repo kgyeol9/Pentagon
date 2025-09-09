@@ -15,7 +15,7 @@
 	<!-- 전체 목록 -->
 	<select id="selectAllItemList" resultMap="itemResult">
 	<![CDATA[
-	  SELECT item_code, name, min_ATK, max_ATK, add_ATK
+	  SELECT item_code, name, min_ATK, max_ATK, add_ATK, imgPath
 	  FROM weaponDB
 	  ORDER BY item_code ASC
 	]]>

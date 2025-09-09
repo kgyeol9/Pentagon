@@ -1,5 +1,7 @@
 package com.myspring.vampir.item.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,20 +15,28 @@ import com.myspring.vampir.item.service.ItemService;
 import com.myspring.vampir.item.vo.ItemVO;
 
 @Controller("ItemController")
-public class ItemControllerImpl implements ItemController{
-	
+public class ItemControllerImpl implements ItemController {
+
 	@Autowired
-	private ItemService memberService;
+	private ItemService itemService;
 	@Autowired
 	private ItemVO itemVO;
-	
+
+	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
+	public ModelAndView main() {
+		return new ModelAndView("redirect:/item/listItems.do");
+	}
+
 	@Override
-	@RequestMapping(value="/item/listItems.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/listItems.do", method = RequestMethod.GET)
 	public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
+		List itemsList = itemService.listItems();
+		
+		System.out.println("[DEBUG] itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
+		
+		ModelAndView mav = new ModelAndView("main"); // ← 여기 포인트
+		mav.addObject("itemsList", itemsList);
 		return mav;
 	}
-	
+
 }

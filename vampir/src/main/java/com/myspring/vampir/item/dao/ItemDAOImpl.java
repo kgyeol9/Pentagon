@@ -17,7 +17,10 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public List selectAllItemList() throws DataAccessException {
 		List<ItemVO> itemsList = null;
-		itemsList = sqlSession.selectList("mapper.item.selectAllitemList");
+		String curDb = sqlSession.selectOne("mapper.item.currentDatabase");
+		Integer cnt   = sqlSession.selectOne("mapper.item.countWeapon");
+		System.out.println("[DEBUG] DATABASE() = " + curDb + ", weaponDB count = " + cnt);
+		itemsList = sqlSession.selectList("mapper.item.selectAllItemList");
 		return itemsList;
 	}
 

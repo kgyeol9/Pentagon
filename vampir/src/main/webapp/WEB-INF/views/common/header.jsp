@@ -116,19 +116,36 @@ nav.center-nav a:hover {
 	right: 15px;
 	cursor: pointer;
 }
-.dropdown {
-	position: relative;  /* 버튼과 박스의 기준점 */
+/* 버튼과 드롭다운을 묶는 래퍼 */
+.profile-dropdown {
+	position: relative; /* 이 안에서 absolute가 위치 잡음 */
 	display: inline-block;
 }
+
+/* 드롭다운 박스 */
+.logOn-box {
+	position: absolute;
+	top: 100%;   /* 버튼 바로 아래 */
+	right: 0;    /* 버튼 오른쪽 끝과 정렬 */
+	background: #1f1f1f;
+	padding: 1em;
+	border-radius: 8px;
+	box-shadow: 0 0 8px #bb000033;
+	width: 280px;
+	z-index: 999;
+
+	transform: translateY(-10px);
+	opacity: 0;
+	pointer-events: none;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 .logOn-box.show {
 	transform: translateY(0);
 	opacity: 1;
 	pointer-events: auto;
 }
 
-.hidden {
-	display: none;
-}
 </style>
 
 </head>

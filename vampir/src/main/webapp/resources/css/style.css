@@ -165,7 +165,7 @@ nav.center-nav a:hover {
 .login-box, .logOn-box {
 	position: absolute;
 	top: 120px;
-	left: 20px;
+	right: 20px;
 	background: var(- -card);
 	padding: 1em;
 	border-radius: 8px;

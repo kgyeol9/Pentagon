@@ -341,6 +341,17 @@ a { text-decoration: none; color: inherit; }
   .sidebox-row { height: auto !important; }
   .sidebox { height: auto !important; }
 }
+/* ===== 아이템 목록 위치 조정 ===== */
+.thead .c.th[data-k="name"] {
+  padding-left: 90px; /* 컬럼 헤더: 아이템 이름 오른쪽 이동 */
+}
+
+.r .c.name-cell {
+  padding-left: 20px; /* 리스트 항목: 이미지+텍스트 오른쪽 이동 */
+}
+.r .name-text {
+  padding-left: 10px; /* 리스트 항목: 이미지+텍스트 오른쪽 이동 */
+}
 </style>
 </head>
 <body>
@@ -356,37 +367,48 @@ a { text-decoration: none; color: inherit; }
 						<div class="subrow">
 							<div class="label">직업</div>
 							<div class="checks" id="jobs">
-								<label class="chk"><input type="checkbox" name="job" value="전체" checked>전체</label>
-								<label class="chk"><input type="checkbox" name="job" value="바이퍼">바이퍼</label>
-								<label class="chk"><input type="checkbox" name="job" value="그림리퍼">그림리퍼</label>
-								<label class="chk"><input type="checkbox" name="job" value="카니지">카니지</label>
-								<label class="chk"><input type="checkbox" name="job" value="블러드스테인">블러드스테인</label>
+								<label class="chk"><input type="checkbox" name="job"
+									value="전체" checked>전체</label> <label class="chk"><input
+									type="checkbox" name="job" value="바이퍼">바이퍼</label> <label
+									class="chk"><input type="checkbox" name="job"
+									value="그림리퍼">그림리퍼</label> <label class="chk"><input
+									type="checkbox" name="job" value="카니지">카니지</label> <label
+									class="chk"><input type="checkbox" name="job"
+									value="블러드스테인">블러드스테인</label>
 							</div>
 						</div>
 						<!-- 분류 -->
 						<div class="subrow">
 							<div class="label">분류</div>
 							<div class="checks" id="cats">
-								<label class="chk"><input type="checkbox" name="cat" value="무기">무기</label>
-								<label class="chk"><input type="checkbox" name="cat" value="방어구">방어구</label>
-								<label class="chk"><input type="checkbox" name="cat" value="장신구">장신구</label>
-								<label class="chk"><input type="checkbox" name="cat" value="부장품">부장품</label>
-								<label class="chk"><input type="checkbox" name="cat" value="소모품">소모품</label>
-								<label class="chk"><input type="checkbox" name="cat" value="스킬북">스킬북</label>
-								<label class="chk"><input type="checkbox" name="cat" value="재표">재표</label>
+								<label class="chk"><input type="checkbox" name="cat"
+									value="무기">무기</label> <label class="chk"><input
+									type="checkbox" name="cat" value="방어구">방어구</label> <label
+									class="chk"><input type="checkbox" name="cat"
+									value="장신구">장신구</label> <label class="chk"><input
+									type="checkbox" name="cat" value="부장품">부장품</label> <label
+									class="chk"><input type="checkbox" name="cat"
+									value="소모품">소모품</label> <label class="chk"><input
+									type="checkbox" name="cat" value="스킬북">스킬북</label> <label
+									class="chk"><input type="checkbox" name="cat"
+									value="재표">재표</label>
 							</div>
 						</div>
 						<!-- 등급 -->
 						<div class="subrow">
 							<div class="label">등급</div>
 							<div class="checks" id="grades">
-								<label class="chk"><input type="checkbox" name="grade" value="전체" checked>전체</label>
-								<label class="chk"><input type="checkbox" name="grade" value="일반">일반</label>
-								<label class="chk"><input type="checkbox" name="grade" value="고급">고급</label>
-								<label class="chk"><input type="checkbox" name="grade" value="희귀">희귀</label>
-								<label class="chk"><input type="checkbox" name="grade" value="영웅">영웅</label>
-								<label class="chk"><input type="checkbox" name="grade" value="전설">전설</label>
-								<label class="chk"><input type="checkbox" name="grade" value="신화">신화</label>
+								<label class="chk"><input type="checkbox" name="grade"
+									value="전체" checked>전체</label> <label class="chk"><input
+									type="checkbox" name="grade" value="일반">일반</label> <label
+									class="chk"><input type="checkbox" name="grade"
+									value="고급">고급</label> <label class="chk"><input
+									type="checkbox" name="grade" value="희귀">희귀</label> <label
+									class="chk"><input type="checkbox" name="grade"
+									value="영웅">영웅</label> <label class="chk"><input
+									type="checkbox" name="grade" value="전설">전설</label> <label
+									class="chk"><input type="checkbox" name="grade"
+									value="신화">신화</label>
 							</div>
 						</div>
 						<!-- 검색 -->
@@ -403,15 +425,19 @@ a { text-decoration: none; color: inherit; }
 				<!-- 오른쪽 50% : 윗 행(2분할, 선택 영역) + 아래 행(비교) -->
 				<div class="filter-right" id="filterRight">
 					<div class="sidebox-row" id="sideTopRow">
-						<div class="sidebox selectable selected" id="sideTopA" data-slot="A" title="담을 위치 선택(A)">
+						<div class="sidebox selectable selected" id="sideTopA"
+							data-slot="A" title="담을 위치 선택(A)">
 							<div class="slot-head">
-								<span class="chip">비교 A (기준)</span><span id="slotALabel" style="color: #aaa">비어 있음</span>
+								<span class="chip">비교 A (기준)</span><span id="slotALabel"
+									style="color: #aaa">비어 있음</span>
 							</div>
 							<div id="slotA"></div>
 						</div>
-						<div class="sidebox selectable" id="sideTopB" data-slot="B" title="담을 위치 선택(B)">
+						<div class="sidebox selectable" id="sideTopB" data-slot="B"
+							title="담을 위치 선택(B)">
 							<div class="slot-head">
-								<span class="chip">비교 B</span><span id="slotBLabel" style="color: #aaa">비어 있음</span>
+								<span class="chip">비교 B</span><span id="slotBLabel"
+									style="color: #aaa">비어 있음</span>
 							</div>
 							<div id="slotB"></div>
 						</div>
@@ -420,7 +446,8 @@ a { text-decoration: none; color: inherit; }
 						<div class="slot-head">
 							<span class="chip">스펙 비교 (A 기준)</span>
 						</div>
-						<div id="cmpBox" style="color: #aaa; font-size: 13px;">A와 B에 아이템을 담으면 비교가 표시됩니다.</div>
+						<div id="cmpBox" style="color: #aaa; font-size: 13px;">A와 B에
+							아이템을 담으면 비교가 표시됩니다.</div>
 					</div>
 				</div>
 			</div>
@@ -430,8 +457,8 @@ a { text-decoration: none; color: inherit; }
 		<div class="result-bar">
 			<div class="result-info" id="resultInfo">총 0개</div>
 			<div class="sort-group">
-				<span style="color: #bbb; font-size: 13px">정렬:</span>
-				<select id="sortKey">
+				<span style="color: #bbb; font-size: 13px">정렬:</span> <select
+					id="sortKey">
 					<option value="id">번호</option>
 					<option value="name">이름</option>
 					<option value="grade">등급</option>
@@ -442,49 +469,94 @@ a { text-decoration: none; color: inherit; }
 
 		<!-- ===== 리스트 ===== -->
 		<section class="card list" aria-label="아이템 목록">
-		  <div class="thead">
-  			<div class="c th" data-k="name">
-    		아이템 이름 <span class="arrow" id="ar-name">▲▼</span>
-  			</div>
-  			<div class="c th" data-k="stats">아이템 능력치</div>
-  			<div class="c no-sort"></div>
-		  </div>
-		  <div id="itemBody">
-			<c:if test="${empty itemsList}">
-			  <div class="r">
-			    <div class="c" style="grid-column:1/-1; color:#aaa;">데이터가 없습니다.</div>
-			  </div>
-			</c:if>  
-			<c:forEach var="item" items="${itemsList}">
-  			  <div class="r">
-    		  <!-- [이름 칸] 이미지 + 이름 -->
-    			<div class="c name-cell">
-      			  <c:choose>
-        		    <c:when test="${not empty item.imgPath}">
-          			  <img class="thumb"
-               			   src="${contextPath}/resources/image/weapon/${fn:escapeXml(item.imgPath)}"
-               			   alt="${fn:escapeXml(item.name)}" />
-        			</c:when>
-        			<c:otherwise>
-          			  <div class="thumb--placeholder">?</div>
-        			</c:otherwise>
-      			  </c:choose>
-      			  <span class="name-text">${fn:escapeXml(item.name)}</span>
-    			</div>
-    		  <!-- [능력치 칸] -->
-    		  <div class="c">
-      		    <c:choose>
-        	  	  <c:when test="${item.min_ATK != 0 || item.max_ATK != 0}">
-          			  		    ATK ${item.min_ATK} ~ ${item.max_ATK}
-          			<c:if test="${item.add_ATK != 0}"> / +${item.add_ATK}</c:if>
-        		  </c:when>
-        		  <c:otherwise>-</c:otherwise>
-      			</c:choose>
-    		  </div>
-    		  <!-- [우측 버튼/비워둠] -->
-    		  <div class="c"></div>
-  			</div>
-		  </c:forEach>
+			<div class="thead">
+				<div class="c th" data-k="name">
+					아이템 이름 <span class="arrow" id="ar-name">▲▼</span>
+				</div>
+				<div class="c th" data-k="stats">아이템 능력치</div>
+				<div class="c no-sort"></div>
+			</div>
+			<div id="itemBody">
+				<c:if test="${empty itemsList}">
+					<div class="r">
+						<div class="c" style="grid-column: 1/-1; color: #aaa;">데이터가
+							없습니다.</div>
+					</div>
+				</c:if>
+				<c:forEach var="item" items="${itemsList}">
+					<div class="r" onclick="toggleDetail(this)"
+						data-minatk="${item.min_ATK}" data-maxatk="${item.max_ATK}"
+						data-addatk="${item.add_ATK}" data-accuracy="${item.accuracy}"
+						data-critical="${item.critical}">
+						<!-- 이름 칸 -->
+						<div class="c name-cell">
+							<c:choose>
+								<c:when test="${not empty item.imgPath}">
+									<img class="thumb"
+										src="${contextPath}/resources/image/weapon/${fn:escapeXml(item.imgPath)}"
+										alt="${fn:escapeXml(item.name)}" />
+								</c:when>
+								<c:otherwise>
+									<div class="thumb--placeholder">?</div>
+								</c:otherwise>
+							</c:choose>
+							<span class="name-text">${fn:escapeXml(item.name)}</span>
+						</div>
+						<!-- 능력치 칸 -->
+						<div class="c">
+							<c:choose>
+								<c:when test="${item.min_ATK != 0 || item.max_ATK != 0}">
+          ATK ${item.min_ATK} ~ ${item.max_ATK}
+          <c:if test="${item.add_ATK != 0}"> / +${item.add_ATK}</c:if>
+								</c:when>
+								<c:otherwise>-</c:otherwise>
+							</c:choose>
+						</div>
+						<!-- + 버튼 -->
+						<div class="c">
+							<button class="plus-btn" onclick="addToCompare(event, this)">+</button>
+						</div>
+					</div>
+
+					<!-- 상세 정보 (기본 접힘) -->
+					<div class="detail">
+						<div class="detail-inner">
+							<c:if test="${item.min_ATK != 0 || item.max_ATK != 0}">
+								<div class="subsec">
+									<h4>공격력</h4>
+									<div class="meta">${item.min_ATK}~ ${item.max_ATK}</div>
+								</div>
+							</c:if>
+							<c:if test="${item.add_ATK != 0}">
+								<div class="subsec">
+									<h4>추가 공격력</h4>
+									<div class="meta">+${item.add_ATK}</div>
+								</div>
+							</c:if>
+							<c:if test="${item.accuracy != 0}">
+								<div class="subsec">
+									<h4>명중률</h4>
+									<div class="meta">${item.accuracy}</div>
+								</div>
+							</c:if>
+							<c:if test="${item.critical != 0}">
+								<div class="subsec">
+									<h4>치명타</h4>
+									<div class="meta">${item.critical}</div>
+								</div>
+							</c:if>
+							<c:if test="${not empty item.obtain_source}">
+								<div class="subsec"
+									style="display: flex; align-items: center; gap: 10px;">
+									<h4 style="margin: 0; font-size: 13px; color: #ffdddd;">획득처:</h4>
+									<div class="meta" style="color: #bbb; font-size: 13px;">
+										${item.obtain_source}</div>
+								</div>
+							</c:if>
+						</div>
+					</div>
+				</c:forEach>
+
 			</div>
 		</section>
 
@@ -508,5 +580,119 @@ a { text-decoration: none; color: inherit; }
 			</div>
 		</section>
 	</main>
+	<script>
+	let selectedSlot = "A"; // 기본은 A
+
+	function toggleDetail(row) {
+		  const detail = row.nextElementSibling; // 바로 뒤에 오는 detail div
+		  if (detail.classList.contains("open")) {
+		    detail.classList.remove("open");
+		    detail.style.maxHeight = "0";
+		  } else {
+		    detail.classList.add("open");
+		    detail.style.maxHeight = detail.scrollHeight + "px";
+		  }
+		}
+
+
+	function addToCompare(e, btn) {
+	  e.stopPropagation(); // row 클릭 이벤트 막기
+	  const row = btn.closest(".r");
+	  const name = row.querySelector(".name-text").textContent;
+	  const data = {
+	    minatk: row.dataset.minatk,
+	    maxatk: row.dataset.maxatk,
+	    addatk: row.dataset.addatk,
+	    accuracy: row.dataset.accuracy,
+	    critical: row.dataset.critical
+	  };
+
+	  if (selectedSlot === "A") {
+	    document.getElementById("slotA").innerHTML = `<b>${name}</b>`;
+	    document.getElementById("slotALabel").innerText = name;
+	    document.getElementById("slotA").dataset.info = JSON.stringify(data);
+	  } else {
+	    document.getElementById("slotB").innerHTML = `<b>${name}</b>`;
+	    document.getElementById("slotBLabel").innerText = name;
+	    document.getElementById("slotB").dataset.info = JSON.stringify(data);
+	  }
+
+	  updateCompare();
+	}
+
+	function updateCompare() {
+	  const slotA = document.getElementById("slotA").dataset.info;
+	  const slotB = document.getElementById("slotB").dataset.info;
+
+	  if (!slotA || !slotB) return;
+
+	  const A = JSON.parse(slotA);
+	  const B = JSON.parse(slotB);
+
+	  let html = `<table class="cmp-table">
+	    <tr><th>능력치</th><th>A</th><th>B</th><th>차이</th></tr>`;
+
+	  ["minatk", "maxatk", "addatk", "accuracy", "critical"].forEach(k => {
+	    if (parseInt(A[k]) !== 0 || parseInt(B[k]) !== 0) {
+	      const diff = B[k] - A[k];
+	      let diffClass = diff > 0 ? "delta-pos" : diff < 0 ? "delta-neg" : "delta-zero";
+	      html += `<tr>
+	        <td>${k.toUpperCase()}</td>
+	        <td>${A[k]}</td>
+	        <td>${B[k]}</td>
+	        <td class="${diffClass}">${diff > 0 ? "+" : ""}${diff}</td>
+	      </tr>`;
+	    }
+	  });
+
+	  html += `</table>`;
+	  document.getElementById("cmpBox").innerHTML = html;
+	}
+
+	// 슬롯 클릭 시 선택 전환
+	document.querySelectorAll(".sidebox.selectable").forEach(box => {
+	  box.addEventListener("click", () => {
+	    document.querySelectorAll(".sidebox").forEach(b => b.classList.remove("selected"));
+	    box.classList.add("selected");
+	    selectedSlot = box.dataset.slot;
+	  });
+	});
+	
+	// ===== 체크박스 제어 =====
+	function setupGroupCheckbox(groupId) {
+	  const group = document.getElementById(groupId);
+	  if (!group) return;
+
+	  const allBox = group.querySelector("input[value='전체']");
+	  const others = group.querySelectorAll("input:not([value='전체'])");
+
+	  // 전체 선택 클릭 시
+	  allBox.addEventListener("change", () => {
+	    others.forEach(cb => cb.checked = allBox.checked);
+	  });
+
+	  // 개별 체크박스 상태 바뀔 때
+	  others.forEach(cb => {
+	    cb.addEventListener("change", () => {
+	      if ([...others].every(o => o.checked)) {
+	        allBox.checked = true;
+	      } else {
+	        allBox.checked = false;
+	      }
+	    });
+	  });
+
+	  // 🔹 초기 상태: 전체가 체크되어 있다면, 나머지도 전부 체크
+	  if (allBox.checked) {
+	    others.forEach(cb => cb.checked = true);
+	  }
+	}
+
+	// 직업, 등급 그룹 적용
+	setupGroupCheckbox("jobs");
+	setupGroupCheckbox("grades");
+
+	
+	</script>
 </body>
 </html>

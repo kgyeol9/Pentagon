@@ -43,8 +43,15 @@ public class BoardControllerImpl implements BoardController {
 	// 화면 확인용(목록/작성/수정/상세) - 페이지 라우팅만
 	@RequestMapping(value = "/board/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName"); // ex) "/board/list"
-		return new ModelAndView(viewName);
+		String viewName = (String) request.getAttribute("viewName");
+
+		System.out.println("viewName :: " + viewName);
+
+		List articlesList = boardService.listArticles();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("articlesList", articlesList);
+		return mav;
+
 	}
 
 	@RequestMapping(value = "/board/write.do", method = { RequestMethod.GET, RequestMethod.POST })

@@ -28,7 +28,7 @@
 
   .sidebar {
     position: fixed;
-    top: 80px; /* header 높이에 맞게 수정 */
+    top: 103px; /* header 높이에 맞게 수정 */
     left: 0;
     width: 250px;
     height: calc(100vh - 80px);

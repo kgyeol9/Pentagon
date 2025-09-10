@@ -1,75 +1,186 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	request.setCharacterEncoding("UTF-8");
+  request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-
-<html>
+<html lang="ko">
 <head>
+  <meta charset="UTF-8">
+  <title>도감 사이트</title>
+
 <style>
+  :root {
+    --sidebar-bg: #1b1b1b;
+    --border-color: #333;
+    --text-color: #e0e0e0;
+    --highlight: #bb2222;
 
+    /* 스크롤 색상 */
+    --scrollbar-bg: #1b1b1b;           /* 스크롤 바탕 */
+    --scrollbar-thumb: #333;           /* 기본 손잡이: 거의 배경색에 묻힘 */
+    --scrollbar-thumb-hover: #991f1f;  /* hover 시 빨간색 포인트 */
+    --scrollbar-thumb-active: #b22222; /* 클릭 중엔 더 밝은 빨강 */
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 80px; /* header 높이에 맞게 수정 */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 80px);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    padding: 1em;
+    box-sizing: border-box;
+    z-index: 1000;
+  }
+
+  /* 크롬/엣지/사파리 전용 스크롤바 */
+  .sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .sidebar::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+  }
+  .sidebar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+  .sidebar::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-thumb-active);
+  }
+
+
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .category-list button {
+    border: none;
+    background: var(--highlight);
+    color: #fff;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  .category-list button:hover {
+    opacity: 0.8;
+  }
+
+  .subcategory {
+    margin-bottom: 2em;
+  }
+
+  .subcategory h3 {
+    margin: 0.5em 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--highlight);
+  }
+
+  .subcategory ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .subcategory li {
+    margin: 0.5em 0;
+  }
+
+  .subcategory a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .subcategory a:hover {
+    color: var(--highlight);
+  }
 </style>
-<meta charset="UTF-8">
-<title>사이드 메뉴</title>
-</head>
-<body>
- 	<%-- <c:choose>
-		<c:when test="${isLogOn == true  && member!= null}">
-			<!-- 회원 정보 박스 -->
-			<aside class="logOn-box">
-				<!-- 상단 -->
-				<div class="user-top">
-					<h3 class="user-name">${member.name}님</h3>
-					<a href="${contextPath}/member/logout.do" class="logout-btn">로그아웃</a>
-				</div>
 
-				<!-- 중단 -->
-				<div class="user-main">
-					<div class="profile-pic"></div>
-					<div class="user-textbox">
-						<span>회원 전용 텍스트 영역</span>
-					</div>
-				</div>
+<div class="sidebar">
+  <div class="category-list">
+    <button onclick="scrollToCategory('c1')">대분류 1</button>
+    <button onclick="scrollToCategory('c2')">대분류 2</button>
+    <button onclick="scrollToCategory('c3')">대분류 3</button>
+	<button onclick="scrollToCategory('c4')">대분류 4</button>
+    <button onclick="scrollToCategory('c5')">대분류 5 </button>
+    <button onclick="scrollToCategory('c6')">대분류 6</button>
+  </div>
 
-				<!-- 하단 -->
-				<div class="user-bottom">
-					<a href="#" class="btn inbox">쪽지함</a> <a
-						href="${contextPath}/member/mypage.do" class="btn mypage">마이페이지</a>
-				</div>
-			</aside>
-		</c:when>
-		<c:otherwise>
-			<!-- 로그인 박스 -->
-			<aside class="login-box">
-				<h3>로그인</h3>
+  <div class="subcategory" id="c1">
+    <h3>대분류 1</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
 
-				<!-- 로그인 실패 메시지 -->
-				<c:if test="${param.result eq 'loginFailed'}">
-					<div class="login-error">아이디 또는 비밀번호가 올바르지 않습니다.</div>
-				</c:if>
+  <div class="subcategory" id="c2">
+    <h3>대분류 2</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
 
-				<form action="${contextPath}/member/login.do" method="post">
-					<div class="input-group">
-						<label for="username">아이디</label> <input type="text" id="username"
-							name="id" required>
-					</div>
-					<div class="input-group">
-						<label for="password">비밀번호</label> <input type="password"
-							id="password" name="pwd" required>
-					</div>
-					<button type="submit">로그인</button>
-				</form>
-				<div class="login-links">
-					<a href="${contextPath}/member/memberForm.do">회원가입</a> <a href="#">아이디/비밀번호
-						찾기</a>
-				</div>
-			</aside>
-		</c:otherwise>
-	</c:choose> 
- --%>
-</body>
-</html>
+  <div class="subcategory" id="c3">
+    <h3>대분류 3</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
+  
+  <div class="subcategory" id="c4">
+    <h3>대분류 4</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
+  
+  <div class="subcategory" id="c5">
+    <h3>대분류 5</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
+  
+  <div class="subcategory" id="c6">
+    <h3>대분류 6</h3>
+    <ul>
+      <li><a href="#">소분류 1</a></li>
+      <li><a href="#">소분류 2</a></li>
+      <li><a href="#">소분류 3</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function scrollToCategory(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+</script>

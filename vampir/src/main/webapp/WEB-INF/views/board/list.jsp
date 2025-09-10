@@ -202,7 +202,16 @@
 	}
 }
 </style>
-
+<script>
+	function fn_articleForm(isLogOn,articleForm,loginForm){
+	  if(isLogOn != '' && isLogOn != 'false'){
+	    location.href=articleForm;
+	  }else{
+	    alert("로그인 후 글쓰기가 가능합니다.")
+	    location.href='${contextPath}/member/loginForm.do'; // alert 확인 후 로그인폼으로 이동
+	  }
+	}
+</script>
 <div class="board-wrap">
 	<div class="container">
 		<div class="topbar">
@@ -210,7 +219,8 @@
 				<a class="logo" href="${contextPath}/board/listArticles.do">자유게시판</a>
 			</h2>
 			<div class="actions">
-				<a href="${contextPath}/board/addArticleForm.do" class="btn primary">글쓰기</a>
+				<a href="javascript:fn_articleForm('${isLogOn}','${contextPath}/board/write.do', 
+                                                    '${contextPath}/member/loginForm.do')" class="btn primary">글쓰기</a>
 				<a href="${contextPath}/board/listArticles.do" class="btn">목록</a>
 			</div>
 		</div>
@@ -255,7 +265,9 @@
 										</c:when>
 										<c:otherwise>-</c:otherwise>
 									</c:choose></td>
-								<td class="col-views"><c:out value="${a.viewCnt}" /></td>
+								<%-- <td class="col-views"><c:out value="${a.viewCnt}" /></td> --%>
+								<td class="col-views"><c:out value="미구현" /></td>
+								<!-- 조회수를 측정하는 값이 없는 관계로 viewCnt를 불러오는 과정 중 오류 발생 < 임시 주석처리 -->
 							</tr>
 						</c:forEach>
 					</c:when>

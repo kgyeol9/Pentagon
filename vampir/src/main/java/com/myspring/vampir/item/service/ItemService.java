@@ -1,9 +1,8 @@
 package com.myspring.vampir.item.service;
 
 import java.util.List;
-
-import org.springframework.dao.DataAccessException;
+import java.util.Map;
 
 public interface ItemService {
-	public List listItems() throws DataAccessException;
+	List <Map<String,Object>> listItemsUnified();
 }

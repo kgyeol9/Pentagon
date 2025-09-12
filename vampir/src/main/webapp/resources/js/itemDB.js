@@ -7,7 +7,6 @@
     const detail = row.nextElementSibling;
     if (!detail || !detail.classList.contains("detail")) return;
 
-    // 현재 페이지에서는 detail이 display:'' 상태이므로 maxHeight로 열고 닫기
     if (detail.classList.contains("open")) {
       detail.classList.remove("open");
       detail.style.maxHeight = "0";
@@ -21,8 +20,7 @@
   function addToCompare(e, btn) {
     if (e) e.stopPropagation();
 
-    // data-name이 없더라도 .r / .item-card 기준으로 fallback
-    let wrap =
+    const wrap =
       btn.closest("[data-name]") ||
       btn.closest(".r") ||
       btn.closest(".item-card");
@@ -34,7 +32,20 @@
         wrap.querySelector(".ic-title")?.textContent ||
         "").trim();
 
+    // 이미지 src: data-img 우선, 없으면 DOM에서 첫 번째 img
+    const imgSrc =
+      wrap.dataset.img ||
+      (wrap.querySelector("img")?.getAttribute("src")) ||
+      "";
+
+    // 공통 데이터 수집 (없으면 빈문자/0)
     const data = {
+      name,
+      img: imgSrc,
+      quality: wrap.dataset.quality || "",
+      category: wrap.dataset.category || "",
+      job: wrap.dataset.job || "",
+      obtain: wrap.dataset.obtain || "",
       minatk: wrap.dataset.minatk ?? "0",
       maxatk: wrap.dataset.maxatk ?? "0",
       addatk: wrap.dataset.addatk ?? "0",
@@ -46,17 +57,17 @@
       const slotA = document.getElementById("slotA");
       const slotALabel = document.getElementById("slotALabel");
       if (slotA && slotALabel) {
-        slotA.innerHTML = `<b>${escapeHtml(name)}</b>`;
-        slotALabel.innerText = name;
         slotA.dataset.info = JSON.stringify(data);
+        slotALabel.innerText = name;
+        renderSlot(slotA, data);
       }
     } else {
       const slotB = document.getElementById("slotB");
       const slotBLabel = document.getElementById("slotBLabel");
       if (slotB && slotBLabel) {
-        slotB.innerHTML = `<b>${escapeHtml(name)}</b>`;
-        slotBLabel.innerText = name;
         slotB.dataset.info = JSON.stringify(data);
+        slotBLabel.innerText = name;
+        renderSlot(slotB, data);
       }
     }
     updateCompare();
@@ -84,8 +95,7 @@
       const b = parseInt(B[k] || "0", 10);
       if (a !== 0 || b !== 0) {
         const diff = b - a;
-        const cls =
-          diff > 0 ? "delta-pos" : diff < 0 ? "delta-neg" : "delta-zero";
+        const cls = diff > 0 ? "delta-pos" : diff < 0 ? "delta-neg" : "delta-zero";
         html += `<tr>
           <td>${k.toUpperCase()}</td>
           <td>${a}</td>
@@ -102,13 +112,7 @@
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (m) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      }[m])
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])
     );
   }
 
@@ -161,16 +165,13 @@
     if (els.bodyList) {
       const rows = Array.from(els.bodyList.querySelectorAll(".r"));
       rows.forEach((r) => {
-        // data-name 자동 주입
         if (!r.dataset.name) {
-          r.dataset.name =
-            (r.querySelector(".name-text")?.textContent || "").trim();
+          r.dataset.name = (r.querySelector(".name-text")?.textContent || "").trim();
         }
         const next = r.nextElementSibling;
         state.listPairs.push({
           row: r,
-          detail:
-            next && next.classList.contains("detail") ? next : null,
+          detail: next && next.classList.contains("detail") ? next : null,
         });
       });
     }
@@ -181,8 +182,7 @@
       : [];
     state.cardItems.forEach((c) => {
       if (!c.dataset.name) {
-        c.dataset.name =
-          (c.querySelector(".ic-title")?.textContent || "").trim();
+        c.dataset.name = (c.querySelector(".ic-title")?.textContent || "").trim();
       }
     });
 
@@ -194,9 +194,7 @@
   }
 
   function totalItems() {
-    return state.view === "list"
-      ? state.listPairs.length
-      : state.cardItems.length;
+    return state.view === "list" ? state.listPairs.length : state.cardItems.length;
   }
   function totalPages() {
     const n = totalItems();
@@ -213,8 +211,7 @@
     els.resultInfo.textContent = `총 ${n}개 · ${start}-${end} (페이지 ${state.currentPage}/${tp})`;
   }
 
-  /* ===== 축약형 페이지 리스트 생성 =====
-     (양 끝 2개 + 현재±2, 중간은 …)  */
+  /* ===== 축약형 페이지 리스트 생성 ===== */
   function buildPageList(tp, cp) {
     const keep = new Set(
       [1, 2, tp - 1, tp, cp - 2, cp - 1, cp, cp + 1, cp + 2].filter(
@@ -248,9 +245,7 @@
       if (p === "...") {
         html += `<span class="page-ellipsis">…</span>`;
       } else {
-        html += `<button class="page-num ${
-          p === cp ? "active" : ""
-        }" data-p="${p}" ${p === cp ? "disabled" : ""}>${p}</button>`;
+        html += `<button class="page-num ${p === cp ? "active" : ""}" data-p="${p}" ${p === cp ? "disabled" : ""}>${p}</button>`;
       }
     });
 
@@ -260,7 +255,6 @@
         const p = parseInt(btn.dataset.p, 10);
         if (!isNaN(p) && p !== state.currentPage) {
           state.currentPage = p;
-          // ★ 숫자 버튼 클릭 시에도 번호줄 재렌더링 필요!
           renderPage(true);
         }
       });
@@ -277,27 +271,22 @@
     const endIdx = Math.min(n, startIdx + state.pageSize);
 
     if (state.view === "list") {
-      // 우선 전부 숨김
       state.listPairs.forEach(({ row, detail }) => {
         row.style.display = "none";
         if (detail) {
-          // 페이지 이동 시 상세는 접고 숨겨두기
           detail.style.display = "none";
           detail.classList.remove("open");
           detail.style.maxHeight = "0";
         }
       });
 
-      // 현재 페이지만 노출
       for (let i = startIdx; i < endIdx; i++) {
         const p = state.listPairs[i];
         if (!p) continue;
         p.row.style.display = "";
-        // ★ 상세행은 현재 페이지에서는 display:''로 유지해야 토글이 동작함
         if (p.detail) p.detail.style.display = "";
       }
     } else {
-      // 카드
       state.cardItems.forEach((card) => (card.style.display = "none"));
       for (let i = startIdx; i < endIdx; i++) {
         const c = state.cardItems[i];
@@ -311,8 +300,7 @@
 
   /* ===== 뷰 토글 ===== */
   function setView(mode) {
-    if (!els.listView || !els.cardView || !els.btnViewList || !els.btnViewCard)
-      return;
+    if (!els.listView || !els.cardView || !els.btnViewList || !els.btnViewCard) return;
     const isList = mode === "list";
     state.view = isList ? "list" : "card";
     state.currentPage = 1;
@@ -333,9 +321,7 @@
     // 비교 슬롯 선택
     document.querySelectorAll(".sidebox.selectable").forEach((box) => {
       box.addEventListener("click", () => {
-        document
-          .querySelectorAll(".sidebox")
-          .forEach((b) => b.classList.remove("selected"));
+        document.querySelectorAll(".sidebox").forEach((b) => b.classList.remove("selected"));
         box.classList.add("selected");
         selectedSlot = box.dataset.slot || "A";
       });
@@ -353,10 +339,41 @@
       });
     }
 
-    if (els.btnViewList)
-      els.btnViewList.addEventListener("click", () => setView("list"));
-    if (els.btnViewCard)
-      els.btnViewCard.addEventListener("click", () => setView("card"));
+    if (els.btnViewList) els.btnViewList.addEventListener("click", () => setView("list"));
+    if (els.btnViewCard) els.btnViewCard.addEventListener("click", () => setView("card"));
+  }
+
+  function renderSlot(slotEl, d) {
+    const chips = [];
+    if (d.quality) chips.push(`<span class="chip">${escapeHtml(d.quality)}</span>`);
+    if (d.category) chips.push(`<span class="chip">${escapeHtml(d.category)}</span>`);
+    if (d.job) chips.push(`<span class="chip">${escapeHtml(d.job)}</span>`);
+
+    const rows = [];
+    const a = parseInt(d.minatk || "0", 10), b = parseInt(d.maxatk || "0", 10);
+    const add = parseInt(d.addatk || "0", 10);
+    const acc = parseInt(d.accuracy || "0", 10);
+    const cri = parseInt(d.critical || "0", 10);
+
+    if (a !== 0 || b !== 0) rows.push(`<div class="row"><b>ATK</b> ${a} ~ ${b}${add ? ` / +${add}` : ""}</div>`);
+    if (acc !== 0) rows.push(`<div class="row"><b>명중률</b> ${acc}</div>`);
+    if (cri !== 0) rows.push(`<div class="row"><b>치명타</b> ${cri}</div>`);
+    if (d.obtain) rows.push(`<div class="row"><b>획득처</b> ${escapeHtml(d.obtain)}</div>`);
+
+    const imgTag = d.img
+      ? `<img class="side-thumb" src="${escapeHtml(d.img)}" alt="${escapeHtml(d.name)}">`
+      : `<div class="side-thumb" style="display:grid;place-items:center;color:#777;font-weight:700;">?</div>`;
+
+    slotEl.innerHTML = `
+      <div class="slot-item">
+        ${imgTag}
+        <div class="slot-main">
+          <div class="slot-title">${escapeHtml(d.name)}</div>
+          ${chips.length ? `<div class="slot-chips">${chips.join("")}</div>` : ""}
+          ${rows.length ? `<div class="slot-spec">${rows.join("")}</div>` : `<div class="slot-spec" style="color:#888">표시할 스펙이 없습니다</div>`}
+        </div>
+      </div>
+    `;
   }
 
   /* ===== 초기화 ===== */
@@ -364,7 +381,7 @@
     cacheElements();
     bindEvents();
     buildData();
-    setView("list"); // 초기 리스트 뷰
+    setView("list");
   }
 
   if (document.readyState === "loading") {

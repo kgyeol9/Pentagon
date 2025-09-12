@@ -1,13 +1,12 @@
 package com.myspring.vampir.item.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-
-import com.myspring.vampir.item.vo.ItemVO;
 
 @Repository("itemDAO")
 public class ItemDAOImpl implements ItemDAO {
@@ -15,13 +14,15 @@ public class ItemDAOImpl implements ItemDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List selectAllItemList() throws DataAccessException {
-		List<ItemVO> itemsList = null;
-		String curDb = sqlSession.selectOne("mapper.item.currentDatabase");
-		Integer cnt   = sqlSession.selectOne("mapper.item.countWeapon");
-		System.out.println("[DEBUG] DATABASE() = " + curDb + ", weaponDB count = " + cnt);
-		itemsList = sqlSession.selectList("mapper.item.selectAllItemList");
-		return itemsList;
+	public List<Map<String,Object>> selectAllUnified() throws DataAccessException {
+	    // (선택) 디버그는 weapon 네임스페이스로
+	    String curDb = sqlSession.selectOne("mapper.weapon.currentDatabase");
+	    Integer w    = sqlSession.selectOne("mapper.weapon.countWeapon");
+	    System.out.println("[DEBUG] DB=" + curDb + ", weaponDB count=" + w);
+
+	    // 통합 목록
+	    return sqlSession.selectList("mapper.itemUnified.selectAllAsMap");
 	}
+
 
 }

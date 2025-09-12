@@ -104,25 +104,44 @@ a{ text-decoration:none; color:inherit; }
 
 /* ===== 하단 페이징/검색 ===== */
 .footerbar{ padding:10px 12px; margin-top:10px; }
-.footerline.footer-two{ display:grid; grid-template-columns:1fr max-content; align-items:center; column-gap:12px; }
-.pager-center{ justify-self:center; display:flex; gap:8px; flex-wrap:wrap; padding:4px 0; }
+/* 변경: 페이지네이션 중앙 정렬 + 검색 우측 */
+.footerline.footer-two{
+  display:grid;
+  grid-template-columns: 1fr max-content 1fr;
+  align-items:center;
+  column-gap:12px;
+}
+.pager-center{ grid-column: 2; justify-self: center; display:flex; gap:8px; flex-wrap:wrap; padding:4px 0; }
 .page-num{ background:#1b1b1b; border:1px solid #333; color:#eee; border-radius:8px; padding:6px 10px; min-width:36px; line-height:1; cursor:pointer; transition:background .12s, border-color .12s, transform .06s; }
 .page-num:hover{ background:#242424; }
 .page-num:active{ transform:translateY(1px); }
 .page-num:focus-visible{ outline:2px solid #bb0000; outline-offset:2px; }
 .page-num.active, .page-num[disabled]{ background:#bb0000; border-color:#bb0000; color:#fff; cursor:default; pointer-events:none; }
 .page-ellipsis{ color:#888; padding:0 4px; user-select:none; }
+.footerline.footer-two .searchline{ grid-column: 3; justify-self:end; }
 
 /* 반응형 */
 @media (max-width:900px){ .filters-grid{ grid-template-columns:1fr; } .sidebox-row{ height:auto!important; } .sidebox{ height:auto!important; } }
-
-/* 검색바(하단) 폭 보정 */
-.searchline.compact{
-  display:grid; grid-template-columns: 220px max-content; gap:8px; align-items:center;
-}
+.searchline.compact{ display:grid; grid-template-columns: 220px max-content; gap:8px; align-items:center; }
 @media (max-width:600px){
   .searchline.compact{ grid-template-columns: 1fr max-content; }
+  .footerline.footer-two{ grid-template-columns: 1fr; row-gap:8px; }
+  .pager-center{ grid-column:1; justify-self:center; }
+  .footerline.footer-two .searchline{ grid-column:1; justify-self:stretch; }
 }
+
+/* 비교 슬롯 카드 */
+.slot-item { display:flex; gap:10px; align-items:flex-start; }
+.side-thumb{ width:40px; height:40px; object-fit:contain; border-radius:6px; background:#222; border:1px solid #333; }
+.slot-main{ display:grid; gap:4px; }
+.slot-title{ font-weight:800; }
+.slot-chips{ display:flex; gap:6px; flex-wrap:wrap; color:#bbb; font-size:12px; }
+.slot-spec{ color:#ccc; font-size:13px; line-height:1.4; }
+.slot-spec .row{ display:flex; gap:6px; }
+/* 상세행: 제목과 값을 가로 한 줄로 */
+.subsec.line{ display:flex; align-items:center; gap:8px; }
+.subsec.line h4{ margin:0; font-size:13px; color:#ffdddd; min-width:max-content; }
+.subsec.line .meta{ color:#bbb; font-size:13px; }
 
 </style>
 </head>
@@ -155,9 +174,6 @@ a{ text-decoration:none; color:inherit; }
               <label class="chk"><input type="checkbox" name="cat" value="방어구">방어구</label>
               <label class="chk"><input type="checkbox" name="cat" value="장신구">장신구</label>
               <label class="chk"><input type="checkbox" name="cat" value="부장품">부장품</label>
-              <label class="chk"><input type="checkbox" name="cat" value="소모품">소모품</label>
-              <label class="chk"><input type="checkbox" name="cat" value="스킬북">스킬북</label>
-              <label class="chk"><input type="checkbox" name="cat" value="재표">재표</label>
             </div>
           </div>
           <!-- 등급 -->
@@ -250,18 +266,30 @@ a{ text-decoration:none; color:inherit; }
       </c:if>
 
       <c:forEach var="item" items="${itemsList}">
+        <%-- 이미지 폴더 결정 --%>
+        <c:set var="imgBase" value="weapon"/>
+        <c:choose>
+          <c:when test="${item.category eq '방어구'}"><c:set var="imgBase" value="armor"/></c:when>
+          <c:when test="${item.category eq '장신구'}"><c:set var="imgBase" value="accessory"/></c:when>
+          <c:when test="${item.category eq '부장품'}"><c:set var="imgBase" value="subequip"/></c:when>
+        </c:choose>
+        <c:set var="imgSrc" value=""/>
+        <c:if test="${not empty item.imgPath}">
+          <c:set var="imgSrc" value="${contextPath}/resources/image/${imgBase}/${fn:escapeXml(item.imgPath)}"/>
+        </c:if>
+
         <div class="r" onclick="toggleDetail(this)"
-        	 data-name="${fn:escapeXml(item.name)}"
+             data-name="${fn:escapeXml(item.name)}"
              data-minatk="${item.min_ATK}" data-maxatk="${item.max_ATK}"
              data-addatk="${item.add_ATK}" data-accuracy="${item.accuracy}"
-             data-critical="${item.critical}">
+             data-critical="${item.critical}" data-quality="${fn:escapeXml(item.quality)}"
+             data-category="${fn:escapeXml(item.category)}" data-job="${fn:escapeXml(item.job)}"
+             data-obtain="${fn:escapeXml(item.obtain_source)}" data-img="${fn:escapeXml(imgSrc)}">
           <!-- 이름 -->
           <div class="c name-cell">
             <c:choose>
-              <c:when test="${not empty item.imgPath}">
-                <img class="thumb"
-                     src="${contextPath}/resources/image/weapon/${fn:escapeXml(item.imgPath)}"
-                     alt="${fn:escapeXml(item.name)}" />
+              <c:when test="${not empty imgSrc}">
+                <img class="thumb" src="${imgSrc}" alt="${fn:escapeXml(item.name)}" />
               </c:when>
               <c:otherwise><div class="thumb--placeholder">?</div></c:otherwise>
             </c:choose>
@@ -284,28 +312,113 @@ a{ text-decoration:none; color:inherit; }
         </div>
 
         <!-- 상세 -->
-        <div class="detail">
-          <div class="detail-inner">
-            <c:if test="${item.min_ATK != 0 || item.max_ATK != 0}">
-              <div class="subsec"><h4>공격력</h4><div class="meta">${item.min_ATK} ~ ${item.max_ATK}</div></div>
+<div class="detail">
+  <div class="detail-inner">
+    <%-- 공통 메타 --%>
+    <c:if test="${not empty item.quality}">
+      <div class="subsec line"><h4>등급</h4><div class="meta">${fn:escapeXml(item.quality)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.category}">
+      <div class="subsec line"><h4>분류</h4><div class="meta">${fn:escapeXml(item.category)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.job}">
+      <div class="subsec line"><h4>직업</h4><div class="meta">${fn:escapeXml(item.job)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.slot}">
+      <div class="subsec line"><h4>장착부위</h4><div class="meta">${fn:escapeXml(item.slot)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.upgrade and item.upgrade ne 0}">
+      <div class="subsec line"><h4>강화</h4><div class="meta">${item.upgrade}</div></div>
+    </c:if>
+
+    <%-- 무기 전용 스펙 --%>
+    <c:if test="${item.category eq '무기'}">
+      <c:if test="${
+          (not empty item.min_ATK and item.min_ATK ne 0) or
+          (not empty item.max_ATK and item.max_ATK ne 0)
+        }">
+        <div class="subsec line">
+          <h4>공격력</h4>
+          <div class="meta">
+            ${empty item.min_ATK ? 0 : item.min_ATK} ~ ${empty item.max_ATK ? 0 : item.max_ATK}
+            <c:if test="${not empty item.add_ATK and item.add_ATK ne 0}"> / +${item.add_ATK}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${not empty item.accuracy and item.accuracy ne 0}">
+        <div class="subsec line"><h4>명중률</h4><div class="meta">${item.accuracy}</div></div>
+      </c:if>
+      <c:if test="${not empty item.critical and item.critical ne 0}">
+        <div class="subsec line"><h4>치명타</h4><div class="meta">${item.critical}</div></div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.job_ATK and item.job_ATK ne 0) or
+          (not empty item.job_ACR and item.job_ACR ne 0) or
+          (not empty item.job_amp and item.job_amp ne 0)
+        }">
+        <div class="subsec line">
+          <h4>직업 보정</h4>
+          <div class="meta">
+            <c:if test="${not empty item.job_ATK and item.job_ATK ne 0}">ATK ${item.job_ATK}&nbsp;</c:if>
+            <c:if test="${not empty item.job_ACR and item.job_ACR ne 0}">ACR ${item.job_ACR}&nbsp;</c:if>
+            <c:if test="${not empty item.job_amp and item.job_amp ne 0}">증폭 ${item.job_amp}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.skill_ATK and item.skill_ATK ne 0) or
+          (not empty item.skill_ACR and item.skill_ACR ne 0) or
+          (not empty item.skill_amp and item.skill_amp ne 0)
+        }">
+        <div class="subsec line">
+          <h4>스킬 보정</h4>
+          <div class="meta">
+            <c:if test="${not empty item.skill_ATK and item.skill_ATK ne 0}">ATK ${item.skill_ATK}&nbsp;</c:if>
+            <c:if test="${not empty item.skill_ACR and item.skill_ACR ne 0}">ACR ${item.skill_ACR}&nbsp;</c:if>
+            <c:if test="${not empty item.skill_amp and item.skill_amp ne 0}">증폭 ${item.skill_amp}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0) or
+          (not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0) or
+          (not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0)
+        }">
+        <div class="subsec line">
+          <h4>각인 옵션</h4>
+          <div class="meta">
+            <c:if test="${not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0}">
+              ${fn:escapeXml(item.engraveOP1)} ${item.engravePT1}%&nbsp;
             </c:if>
-            <c:if test="${item.add_ATK != 0}">
-              <div class="subsec"><h4>추가 공격력</h4><div class="meta">+${item.add_ATK}</div></div>
+            <c:if test="${not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0}">
+              ${fn:escapeXml(item.engraveOP2)} ${item.engravePT2}%&nbsp;
             </c:if>
-            <c:if test="${item.accuracy != 0}">
-              <div class="subsec"><h4>명중률</h4><div class="meta">${item.accuracy}</div></div>
-            </c:if>
-            <c:if test="${item.critical != 0}">
-              <div class="subsec"><h4>치명타</h4><div class="meta">${item.critical}</div></div>
-            </c:if>
-            <c:if test="${not empty item.obtain_source}">
-              <div class="subsec" style="display:flex; align-items:center; gap:10px;">
-                <h4 style="margin:0; font-size:13px; color:#ffdddd;">획득처:</h4>
-                <div class="meta" style="color:#bbb; font-size:13px;">${fn:escapeXml(item.obtain_source)}</div>
-              </div>
+            <c:if test="${not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0}">
+              ${fn:escapeXml(item.engraveOP3)} ${item.engravePT3}%
             </c:if>
           </div>
         </div>
+      </c:if>
+
+      <c:if test="${not empty item.skill_name}">
+        <div class="subsec line"><h4>무기 스킬</h4><div class="meta">${fn:escapeXml(item.skill_name)}</div></div>
+      </c:if>
+      <c:if test="${not empty item.skill_comment}">
+        <div class="subsec line"><h4>스킬 설명</h4><div class="meta">${fn:escapeXml(item.skill_comment)}</div></div>
+      </c:if>
+    </c:if>
+
+    <%-- 획득처(공통) --%>
+    <c:if test="${not empty item.obtain_source}">
+      <div class="subsec line"><h4>획득처</h4><div class="meta">${fn:escapeXml(item.obtain_source)}</div></div>
+    </c:if>
+  </div>
+</div>
+
       </c:forEach>
     </div>
   </section>
@@ -314,18 +427,30 @@ a{ text-decoration:none; color:inherit; }
   <section class="card" id="cardView" aria-label="아이템 카드 목록" style="display:none;">
     <div id="cardGrid" class="item-cards">
       <c:forEach var="item" items="${itemsList}">
+        <%-- 이미지 폴더/경로 재사용 --%>
+        <c:set var="imgBase" value="weapon"/>
+        <c:choose>
+          <c:when test="${item.category eq '방어구'}"><c:set var="imgBase" value="armor"/></c:when>
+          <c:when test="${item.category eq '장신구'}"><c:set var="imgBase" value="accessory"/></c:when>
+          <c:when test="${item.category eq '부장품'}"><c:set var="imgBase" value="subequip"/></c:when>
+        </c:choose>
+        <c:set var="imgSrc" value=""/>
+        <c:if test="${not empty item.imgPath}">
+          <c:set var="imgSrc" value="${contextPath}/resources/image/${imgBase}/${fn:escapeXml(item.imgPath)}"/>
+        </c:if>
+
         <div class="item-card"
              data-name="${fn:escapeXml(item.name)}"
              data-minatk="${item.min_ATK}" data-maxatk="${item.max_ATK}"
              data-addatk="${item.add_ATK}" data-accuracy="${item.accuracy}"
-             data-critical="${item.critical}">
+             data-critical="${item.critical}" data-quality="${fn:escapeXml(item.quality)}"
+             data-category="${fn:escapeXml(item.category)}" data-job="${fn:escapeXml(item.job)}"
+             data-obtain="${fn:escapeXml(item.obtain_source)}" data-img="${fn:escapeXml(imgSrc)}">
           <div class="ic-head">
             <div class="ic-name">
               <c:choose>
-                <c:when test="${not empty item.imgPath}">
-                  <img class="ic-thumb"
-                       src="${contextPath}/resources/image/weapon/${fn:escapeXml(item.imgPath)}"
-                       alt="${fn:escapeXml(item.name)}" />
+                <c:when test="${not empty imgSrc}">
+                  <img class="ic-thumb" src="${imgSrc}" alt="${fn:escapeXml(item.name)}" />
                 </c:when>
                 <c:otherwise><div class="ic-thumb ic-thumb--ph">?</div></c:otherwise>
               </c:choose>
@@ -363,7 +488,7 @@ a{ text-decoration:none; color:inherit; }
             <c:if test="${item.critical != 0}">
               <div class="stat"><b>치명타</b> ${item.critical}</div>
             </c:if>
-            <c:if test="${not empty item.obtain_source}">
+            <c:if test="${not empty item.obtain_source}}">
               <div class="stat"><b>획득처</b> ${fn:escapeXml(item.obtain_source)}</div>
             </c:if>
           </div>
@@ -384,7 +509,7 @@ a{ text-decoration:none; color:inherit; }
   </section>
 </main>
 
-<!-- 외부 JS -->
-<script src="${contextPath}/resources/js/itemDB.js"></script>
+<!-- 외부 JS (캐시 버스터 추가) -->
+<script src="${contextPath}/resources/js/itemDB.js?v=20250212"></script>
 </body>
 </html>

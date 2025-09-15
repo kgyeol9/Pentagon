@@ -13,64 +13,9 @@
 <head>
 <meta charset="UTF-8" />
 <title>뱀피지지 - 비로그인</title>
+<link rel="stylesheet" href="<c:url value='/resources/css/hee.css' />">
 <style>
-body {
-	margin: 0;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background: #121212;
-	color: #eee;
-	transition: background 0.3s, color 0.3s;
-}
 
-a {
-	text-decoration: none;
-}
-
-/* 쌀 계산기 */
-#rice-calculator {
-	position: relative;
-	top: 190px;
-	background: #1f1f1f;
-	padding: 2em;
-	border-radius: 8px;
-	box-shadow: 0 0 8px #bb000033;
-	margin-bottom: 2em;
-}
-
-.calc-container {
-	display: flex;
-	align-items: center;
-	gap: 1em;
-	flex-wrap: wrap;
-}
-
-.calc-container .input-group {
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 200px;
-}
-
-.calc-container input {
-	padding: 8px;
-	border-radius: 4px;
-	border: 1px solid #333;
-	background: #222;
-	color: #eee;
-}
-
-#swapBtn {
-	background: #bb0000;
-	color: #fff;
-	border: none;
-	padding: 8px 12px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1.2em;
-}
-
-#swapBtn:hover {
-	background: #ff4444;
-}
 
 /* 메인 콘텐츠 위치 조정 */
 main {
@@ -97,34 +42,6 @@ main {
 	}
 }
 
-section {
-	background: #1f1f1f;
-	margin-bottom: 2em;
-	padding: 1.5em 2em;
-	border-radius: 8px;
-	box-shadow: 0 0 8px #bb000033;
-}
-
-section h2 {
-	border-bottom: 2px solid #bb0000;
-	padding-bottom: 0.3em;
-	margin-bottom: 1em;
-	color: #ff5555;
-}
-
-ul {
-	list-style: none;
-	padding-left: 0;
-}
-
-li {
-	padding: 0.4em 0;
-	border-bottom: 1px solid #333;
-}
-
-li:last-child {
-	border-bottom: none;
-}
 </style>
 </head>
 

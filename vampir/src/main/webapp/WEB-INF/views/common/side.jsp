@@ -11,6 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <title>도감 사이트</title>
+  <link rel="stylesheet" href="<c:url value='/resources/css/hee.css' />">
 
 <style>
   :root {

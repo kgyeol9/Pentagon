@@ -12,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>헤더</title>
+<link rel="stylesheet" href="<c:url value='/resources/css/hee.css' />">
+
 <style>
 header {
 	background-color: #1c1c1c;
